@@ -2,6 +2,7 @@
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -14,6 +15,7 @@ const config = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
+    clean: true, // It's good practice to clean the dist folder before each build
   },
   devServer: {
     open: true,
@@ -22,6 +24,11 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/template.html",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "img", to: "img" }, // Assumes your images are in an 'img' folder at the project root
+      ],
     }),
 
     // Add your plugins here
