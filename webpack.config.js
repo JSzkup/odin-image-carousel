@@ -27,7 +27,7 @@ const config = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: "img", to: "img" }, // Assumes your images are in an 'img' folder at the project root
+        { from: "src/img", to: "img" }, // Assumes your images are in an 'img' folder within src
       ],
     }),
 
