@@ -1,7 +1,8 @@
 import "./styles.css";
 
 function importImages() {
-    // Use require.context to import all images matching the pattern from the ./img directory.
+    // Import images from the img folder to be worked with
+
     const imageContext = require.context('./img', false, /^\.\/Carnival-\d+\.png$/);
 
     // Get all the matched file keys (e.g., ['./Carnival-1.png', './Carnival-2.png'])
@@ -18,6 +19,8 @@ function importImages() {
 }
 
 function addImagesToCarousel() {
+    // Adds images into the carousel container
+
     const carousel = document.querySelector("#image-carousel-container")
     const images = importImages();
 
@@ -30,6 +33,25 @@ function addImagesToCarousel() {
     });
 }
 
+function carouselImageList() {
+    // returns a list of images in the carousel container
+
+    const carousel = document.querySelector("#image-carousel-container")
+    const images = carousel.querySelectorAll("img")
+
+    return Array.from(images)
+}
+
+function currentImageInCarousel(imageMovement, nextImage) {
+    const images = carouselImageList()
+
+    // TODO image movement adds or subtracts 1 from the current image index
+    // TODO nextImage moves to a specific image index
+
+
+    return currentImage
+}
+
 function previousImageInCarousel() {
 
 }
@@ -37,5 +59,7 @@ function previousImageInCarousel() {
 function nextImageInCarousel() {
 
 }
+
+function autoScrollCarousel() {}
 
 addImagesToCarousel();
