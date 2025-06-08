@@ -31,7 +31,7 @@ function addImagesToCarousel() {
         img.classList.add("carousel-image");
         
         // Hide all images except the first one
-        // TODO might change this to just make the first image active
+        // TODO might change this to just make the first image active/all .carousel-image elements display none
         if (index !== 0) {
             img.style.display = "none";
         } else {
@@ -54,20 +54,27 @@ function carouselImageList() {
 function ShowImage(index, direction) {
     const images = carouselImageList();
 
+    // index of currently displayed image
+    const currentImage = images.findIndex((img) => img.classList.contains("active"));
+
     // Hide all images
     images.forEach((img) => {
         img.style.display = "none";
         img.classList.remove("active");
     });
 
+    // TODO account for looping around the carousel
     if (index > -1) {
         images[index].style.display = "block";
     } else if (direction === "left") {
-        // images[images.length - 1].style.display = "block";
-        // images[images.length - 1].classList.add("active");
+        // Show the previous image
+        const newImageIndex = (currentImage - 1);
+        images[newImageIndex].classList.add("active");
+        images[newImageIndex].style.display = "block";
     } else {
-        // images[images.length + 1].style.display = "block";
-        // images[images.length + 1].classList.add("active");
+        const newImageIndex = (currentImage + 1);
+        images[newImageIndex].classList.add("active");
+        images[newImageIndex].style.display = "block";
     }
 
 
