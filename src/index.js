@@ -67,23 +67,26 @@ function showImage(index, direction) {
         img.classList.remove("active");
     });
 
+    let newImageIndex;
+    
     if (index > -1) {
         // Show the image at the given index
-        images[index].style.display = "block";
-
+        newImageIndex = index;
+        images[newImageIndex].style.display = "block";
+        images[newImageIndex].classList.add("active");
     } else if (direction === "left") {
         // Show the previous image, module to wrap around
-        const newImageIndex = ((currentImage - 1) + images.length) % images.length;
+        newImageIndex = ((currentImage - 1) + images.length) % images.length;
         images[newImageIndex].classList.add("active");
         images[newImageIndex].style.display = "block";
-
     } else {
-        const newImageIndex = (currentImage + 1) % images.length;
+        newImageIndex = (currentImage + 1) % images.length;
         images[newImageIndex].classList.add("active");
         images[newImageIndex].style.display = "block";
     }
 
-
+    // Update the active nav dot
+    updateActiveNavDot(newImageIndex);
 }
 
 function previousImageInCarousel() {
@@ -122,7 +125,6 @@ function createNavDots() {
     const images = carouselImageList();
     const currentImageIndex = images.findIndex((img) => img.classList.contains("active"));
 
-
     for (let i = 0; i < dotAmount; i++) {
         const dotNavButton = document.createElement("button");
         dotNavButton.classList.add("nav-dot");
@@ -141,7 +143,18 @@ function createNavDots() {
             autoScrollTimer = setTimeout(autoScrollCarousel, 5000);
         });
     };
+}
 
+function updateActiveNavDot(activeIndex) {
+    const navDots = document.querySelectorAll(".nav-dot");
+    
+    // Remove active class from all dots
+    navDots.forEach(dot => dot.classList.remove("active"));
+    
+    // Add active class to the current dot
+    if (navDots[activeIndex]) {
+        navDots[activeIndex].classList.add("active");
+    }
 }
 
 
