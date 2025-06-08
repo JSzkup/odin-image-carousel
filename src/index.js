@@ -117,13 +117,31 @@ function autoScrollCarousel() {
 
 function createNavDots() {
     const dotAmount = carouselImageList().length;
-    // TODO set active to current image
+    const navbarContainer = document.querySelector("#image-carousel-navbar");
+
+    const images = carouselImageList();
+    const currentImageIndex = images.findIndex((img) => img.classList.contains("active"));
+
 
     for (let i = 0; i < dotAmount; i++) {
-        const dot = document.createElement("button");
-        dot.classList.add("nav-dot");
-        // TODO add to DOM
-    }
+        const dotNavButton = document.createElement("button");
+        dotNavButton.classList.add("nav-dot");
+
+        // Set the initial active dot
+        if (i === currentImageIndex) {
+            dotNavButton.classList.add("active");
+        }
+
+        navbarContainer.appendChild(dotNavButton);
+
+        dotNavButton.addEventListener("click", () => {
+            showImage(i, "");
+
+            clearTimeout(autoScrollTimer);
+            autoScrollTimer = setTimeout(autoScrollCarousel, 5000);
+        });
+    };
+
 }
 
 
@@ -131,7 +149,9 @@ function main(){
     addImagesToCarousel();
     previousImageInCarousel();
     nextImageInCarousel();
+    createNavDots();
 
+    // add autoscroll late so image doesnt't change immediately
     autoScrollTimer = setTimeout(autoScrollCarousel, 5000);
 }
 
