@@ -1,4 +1,15 @@
 img {
-    width: 95%;
+    width: 100%;
     height: auto;
+}
+
+#image-carousel-header {
+    display: flex;
+    flex-direction: row;;
+}
+
+.side-carousel-navigation-button {
+    /* height: 100%; */
+    width: 100px;
+    /* background-color: red */
 }

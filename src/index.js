@@ -1,5 +1,9 @@
 import "./styles.css";
 
+// save a global timer to reset the auto scroll
+let autoScrollTimer;
+
+
 function importImages() {
     // Import images from the img folder to be worked with
 
@@ -51,7 +55,7 @@ function carouselImageList() {
     return Array.from(images);
 }
 
-function ShowImage(index, direction) {
+function showImage(index, direction) {
     const images = carouselImageList();
 
     // index of currently displayed image
@@ -63,14 +67,16 @@ function ShowImage(index, direction) {
         img.classList.remove("active");
     });
 
-    // TODO account for looping around the carousel
     if (index > -1) {
+        // Show the image at the given index
         images[index].style.display = "block";
+
     } else if (direction === "left") {
         // Show the previous image, module to wrap around
         const newImageIndex = ((currentImage - 1) + images.length) % images.length;
         images[newImageIndex].classList.add("active");
         images[newImageIndex].style.display = "block";
+
     } else {
         const newImageIndex = (currentImage + 1) % images.length;
         images[newImageIndex].classList.add("active");
@@ -84,7 +90,10 @@ function previousImageInCarousel() {
     const button = document.querySelector("#previous-image-button");
 
     button.addEventListener("click", () => {
-        ShowImage(-1, "left");
+        showImage(-1, "left");
+
+        clearTimeout(autoScrollTimer);
+        autoScrollTimer = setTimeout(autoScrollCarousel, 5000);
     });
 }
 
@@ -92,11 +101,19 @@ function nextImageInCarousel() {
     const button = document.querySelector("#next-image-button");
 
     button.addEventListener("click", () => {
-        ShowImage(-1, "right");
+        showImage(-1, "right");
+
+        clearTimeout(autoScrollTimer);
+        autoScrollTimer = setTimeout(autoScrollCarousel, 5000);
     });
 }
 
-function autoScrollCarousel() {}
+function autoScrollCarousel() {
+    showImage(-1, "right");
+
+    clearTimeout(autoScrollTimer);
+    autoScrollTimer = setTimeout(autoScrollCarousel, 5000); // Change image every 5 seconds
+}
 
 function createNavDots() {
     const dotAmount = carouselImageList().length;
@@ -114,6 +131,8 @@ function main(){
     addImagesToCarousel();
     previousImageInCarousel();
     nextImageInCarousel();
+
+    autoScrollTimer = setTimeout(autoScrollCarousel, 5000);
 }
 
 main();
