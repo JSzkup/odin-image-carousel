@@ -67,12 +67,12 @@ function ShowImage(index, direction) {
     if (index > -1) {
         images[index].style.display = "block";
     } else if (direction === "left") {
-        // Show the previous image
-        const newImageIndex = (currentImage - 1);
+        // Show the previous image, module to wrap around
+        const newImageIndex = ((currentImage - 1) + images.length) % images.length;
         images[newImageIndex].classList.add("active");
         images[newImageIndex].style.display = "block";
     } else {
-        const newImageIndex = (currentImage + 1);
+        const newImageIndex = (currentImage + 1) % images.length;
         images[newImageIndex].classList.add("active");
         images[newImageIndex].style.display = "block";
     }
