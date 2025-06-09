@@ -5,13 +5,27 @@ img {
 
 #image-carousel-header {
     display: flex;
-    flex-direction: row;;
+    flex-direction: row;
+    align-items: center;
 }
 
 .side-carousel-navigation-button {
-    /* height: 100%; */
+    height: 50px;
     width: 100px;
-    /* background-color: red */
+
+    /* makes the buttons transparent with white texts */
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+#previous-image-button{
+    position: relative;
+    left: 55px;
+}
+
+#next-image-button {
+    position: relative;
+    right: 55px;
 }
 
 #image-carousel-navbar {

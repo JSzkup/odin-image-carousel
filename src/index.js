@@ -35,7 +35,6 @@ function addImagesToCarousel() {
         img.classList.add("carousel-image");
         
         // Hide all images except the first one
-        // TODO might change this to just make the first image active/all .carousel-image elements display none
         if (index !== 0) {
             img.style.display = "none";
         } else {
